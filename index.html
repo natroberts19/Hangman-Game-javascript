@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="https://bootswatch.com/united/bootstrap.min.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -16,23 +15,22 @@
 <body>
 
     <div class="jumbotron">
-        <h1>Hangman</h1>
-        <p id="jumbotron-p">All about National Parks... America's Best Idea. </p>
+        <h1>Hangman Game</h1>
+        <p id="jumbotron-p">National Parks... America's Best Idea. </p>
     </div>
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="page-header">
-                    <h1>Press any key to start!</h1>
-                    <!-- <h1>Press any key to start! <input type="text" id="start-key"></h1> -->
+                    <h1><span id="start">Press any key to start!</span></h1>
                 </div>
 
                 <div class="row panel-row">
                     <div class="col-md-4">
                         
                         <h1>Current Word:</h1>
-                        <p id="answerArray"></p>
+                        <p> <span id="answer"> </span></p>
                         <h1>Letters Used:</h1>
                         <p>list of letters used</p>
                     </div>
@@ -46,7 +44,7 @@
                         <p id="winsTally"></p>
                         <h1>Guesses Remaining:</h1>
                         <p id="guessTally"></p>
-                        <h2>User Guess: <input type="text" id="user-guess"></h2>
+                        <h2>User Guess: <input type="text" id="userGuess"></h2>
                     </div>
                 </div>
             </div>
