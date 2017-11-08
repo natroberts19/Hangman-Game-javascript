@@ -23,7 +23,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="page-header">
-                    <h1><span id="start">Press any key to start!</span></h1>
+                    <h1>Press a letter to start!</h1>
+                    <!-- <span id="start"></span> -->
+                    <h2><span id="congratulations"></span></h2>
+                    <h2><span id="gameover"></span></h2>
                 </div>
 
                 <div class="row panel-row">
@@ -32,7 +35,7 @@
                         <h1>Current Word:</h1>
                         <p> <span id="answer"> </span></p>
                         <h1>Letters Used:</h1>
-                        <p>list of letters used</p>
+                        <p><span id="lettersUsed"> </span></p>
                     </div>
                     
                     <div class="col-md-4">
@@ -41,11 +44,10 @@
 
                     <div class="col-md-4">
                         <h1> Wins: </h1>
-                        <p id="winsTally"></p>
+                        <p id="wins"></p>
                         <h1>Guesses Remaining:</h1>
-                        <p id="guessTally"></p>
-                        <h2>User Guess: <input type="text" id="userGuess"></h2>
-                    </div>
+                        <p id="guesses"></p>
+                    <div>
                 </div>
             </div>
         </div>
