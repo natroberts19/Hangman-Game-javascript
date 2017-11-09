@@ -47,25 +47,41 @@ document.onkeyup = function (event) {
     //if the index comes out as -1, it means that keyPress was NOT in the alphabetArray
     //if I typed "]" or "m", for example, this code would run
     if (alphabetArray.indexOf(keyPress) === -1) {
-        console.log("Please choose a single letter to start the game.");
-
+        // IGNORE the keyPress
+        // console.log("Please choose a single letter to start the game.");
+        return;
         //if the index comes out as anything other than -1, it means the letter was in the array
         //if I typed "a" or "b", for example, this code would run    
-    } else if (random.indexOf(keyPress) > -1) {
-        console.log(keyPress);
+    } else if (random.indexOf(keyPress) === -1) {
+        // letter is not in word; add to guessWrongArray
+        guess.wrongArray.push(keyPress);
+        console.log("wrong letters:", guessWrongArray);
+        guessesRemaining--;
+        document.getElementById("lettersUsed").innerHTML = guessWrongArray.join(", ");
 
+        // Update display for guessesRemaining
+        document.getElementById("guesses").innerHTML = guessesRemaining;
+        
+    } else {
+        console.log(keyPress);
         // If the player guesses a correct letter, add the letter to the correct location in Current Word <span id="answer">
         for (var j = 0; j < random.length; j++) {
             if (random[j] === keyPress) {
                 answerArray[j] = keyPress;
                 remainingLetters--;
-            }
+                document.getElementById("answer").innerHTML = answerArray.join("");
+            
 
-            // If the player guesses a wrong letter, add the letter to <span id="lettersUsed"> and decrease guessesRemaining by 1.
-            if (random[j] != keyPress) {
-                guessWrongArray[j] = keyPress;
-                guessesRemaining--;
-                document.getElementById("lettersUsed").innerHTML("" + keyPress);
+// *** Each time we put a letter in the answerArray, we should check if it mathes the random word
+                // call a function to "check win"?
+
+                // } else {
+
+            // // If the player guesses a wrong letter, add the letter to <span id="lettersUsed"> and decrease guessesRemaining by 1.
+            // if (random[j] != keyPress) {
+            //     guessWrongArray[j] = keyPress;
+            //     guessesRemaining--;
+            //     document.getElementById("lettersUsed").innerHTML("" + keyPress);
             }
         }
 
