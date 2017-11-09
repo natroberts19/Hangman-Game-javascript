@@ -5,7 +5,7 @@ var parks = ["acadia", "everglades", "yosemite", "yellowstone", "glacier", "badl
 var alphabetArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var answerArray = [];
 var guessWrongArray = [];
-var guessRight;
+
 
 // state of variable at beginning of the game.
 var winsTally = 0;
@@ -16,7 +16,7 @@ var guessesRemaining = 10;
 var random = parks[Math.floor(Math.random() * parks.length)];
 console.log(random);
 
-// Populates the Wins with 0 and Guesses Remaining with 6 at the start the game.
+// Populates the Wins with 0 and Guesses Remaining with 10 at the start the game.
 document.getElementById("wins").innerHTML = winsTally;
 console.log(winsTally);
 document.getElementById("guesses").innerHTML = guessesRemaining;
@@ -54,14 +54,15 @@ document.onkeyup = function (event) {
         //if I typed "a" or "b", for example, this code would run    
     } else if (random.indexOf(keyPress) === -1) {
         // letter is not in word; add to guessWrongArray
-        guess.wrongArray.push(keyPress);
+        guessWrongArray.push(keyPress);
         console.log("wrong letters:", guessWrongArray);
         guessesRemaining--;
         document.getElementById("lettersUsed").innerHTML = guessWrongArray.join(", ");
 
         // Update display for guessesRemaining
         document.getElementById("guesses").innerHTML = guessesRemaining;
-        
+
+                
     } else {
         console.log(keyPress);
         // If the player guesses a correct letter, add the letter to the correct location in Current Word <span id="answer">
@@ -73,32 +74,25 @@ document.onkeyup = function (event) {
             
 
 // *** Each time we put a letter in the answerArray, we should check if it mathes the random word
-                // call a function to "check win"?
+        // NEW / If the player fills in the whole word, display the word and add 1 to winsTally. 
+            if ((answerArray === random) && (guessesRemaining > 0) && (remainingLetters === 0)) {
+                document.getElementById("congratulations").innerHTML("Congratulations, you won! The Park name is" + random);
+                winsTally++;
+                console.log(winsTally);
+                // Update display for wins
+                document.getElementById("wins").innerHTML = winsTally;
+                
+                // Also need a reset function here for both scenarios.
+                }
+            else if ((answerArray != random ) && (guessesRemaining === 0) && (remainingLetters > 0)) {
+                return;
+                document.getElementById("gameover").innerHTML("Sorry, you lost this time! The Park name is" + random);
+            }
 
-                // } else {
-
-            // // If the player guesses a wrong letter, add the letter to <span id="lettersUsed"> and decrease guessesRemaining by 1.
-            // if (random[j] != keyPress) {
-            //     guessWrongArray[j] = keyPress;
-            //     guessesRemaining--;
-            //     document.getElementById("lettersUsed").innerHTML("" + keyPress);
             }
         }
 
     }
 
 }
-// If the player fills in the whole word, display the word and add 1 to winsTally. (Inside of Game Loop?)
-// Display a Congratulations message and reset the game.
-function gameOver(win) {
-    if (win) {
-        document.getElementById("congratulations").innerHTML("Congratulations, you won! The Park name is" + random);
-        winsTally++;
-        console.log(winsTally);
-    } else {
-        document.getElementById("gameover").innerHTML("Sorry, you lost this time! The Park name is" + random);
-    }
-    console.log(win);
-    // Reset the game???
 
-}
