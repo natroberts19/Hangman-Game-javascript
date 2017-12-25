@@ -1,98 +1,137 @@
-// declared global variables:
-var keyPress;
-var availableLetters;
-var parks = ["acadia", "everglades", "yosemite", "yellowstone", "glacier", "badlands", "shenandoah", "arches", "zion", "canaveral"];
-var alphabetArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var answerArray = [];
+// Declared global variables:
+// all the answer options
+var parksList = ["acadia", "everglades", "yosemite", "yellowstone", "glacier", "badlands", "shenandoah", "arches", "zion", "canaveral", "denali", "grand tetons", "gettysburg", "joshua tree", "antietam", "jean lafitte", "isle royale", "grand canyon"];
+// variable that represents the solution.
+var randomWord = "";
+// variable to break the solution up into indv letter to be stored in the array:
+var lettersInChosenWord = [];
+// number of blanks shown based on solution.
+var numBlanks = 0;
+// mixture of blanks and correct letters.
+var blanksAndSuccesses = [];
+// holds all the wrong guesses.
 var guessWrongArray = [];
-
-
+// Game counters:
 // state of variable at beginning of the game.
 var winsTally = 0;
+var lossTally = 0;
+var messageWon = "Congrats - you won!";
+var messageLost = "Sorry - try again!";
+var messageRemove = "";
 // state of variable at beginning of the game.
-var guessesRemaining = 10;
+var guessesLeft = 10;
 
+
+// Part II: Start the game. Create the functions.
 // Generates a random park name from the parks array. Stores the word I want the player to guess.
-var random = parks[Math.floor(Math.random() * parks.length)];
-console.log(random);
 
-// Populates the Wins with 0 and Guesses Remaining with 10 at the start the game.
-document.getElementById("wins").innerHTML = winsTally;
-console.log(winsTally);
-document.getElementById("guesses").innerHTML = guessesRemaining;
-console.log(guessesRemaining);
+// This function is how we will start and restart the game. Doesn't run here; it's for future use.
+function startGame() {
+    // reset guesses back to 0.
+    guessesLeft = 10;
 
-// Shows the random word. Needs to display as "_'s" in the Current Word section. Needs to update as user chooses correct letters.
-for (var i = 0; i < random.length; i++) {
-    answerArray[i] = "_ ";
-    console.log(answerArray);
+    // choose solution randomly from the parksList.
+    randomWord = parksList[Math.floor(Math.random() * parksList.length)];
+    console.log(randomWord);
+    // break the word up into indv letters. Then count the letters in the word.
+    lettersInChosenWord = randomWord.split("");
+    console.log("Letters in Chosen Word (split): ", lettersInChosenWord);
+    numBlanks = lettersInChosenWord.length;
+    console.log("Random Word: ", randomWord);
+
+    // Now, reset the guess/success array after each round.
+    blanksAndSuccesses = [];
+    // And, reset the worng guesses after each round.
+    guessWrongArray = [];
+
+    // Fill up the blanks and successes list with the correct number of blanks based on the number of letters in the solution.
+    for (var i = 0; i < numBlanks; i++) {
+        blanksAndSuccesses.push("_");
+    }
+    console.log("no. of Blanks: ", blanksAndSuccesses);
+
+    // Puts the guesses left back to 10
+    document.getElementById("guesses-left").innerHTML = guessesLeft;
+    console.log("Guesses Left: ", guessesLeft);
+    // Prints the blanks at the beginning of each round.
+    document.getElementById("word-blanks").innerHTML = blanksAndSuccesses.join(" ");
+    // clears the wrong guesses from the previous round.
+    document.getElementById("letters-used").innerHTML = guessWrongArray.join(" ");
+
 }
 
-// Variable to track remaining letters - does this need to be inside the GAME LOOP?
-var remainingLetters = random.length;
-console.log(remainingLetters);
+// Part III. Now we need a function to complete all of the comparisons to match letters to guesses, etc. Creating for future use.
 
+function checkLetters(letter) {
+    // create boolean toggle based on whether a user letter is found in the word.
+    var letterInWord = false;
+    for (var i = 0; i < numBlanks; i++) {
+        // ==>
+        if (randomWord[i] === letter) {
+            letterInWord = true;
+        }
+    }
+    // if the letter exists in the word, then find out where it belongs.
+    // ==>
+    if (letterInWord) {
+        // Loop through the word
+        for (var j = 0; j < numBlanks; j++) {
+            if (randomWord[j] === letter) {
+                // put it in the correct spot.
+                blanksAndSuccesses[j] = letter;
+            }
+        }
+        console.log("Correct Spot?: ", blanksAndSuccesses);
+    }
+    // ==>
+    else {
+        // add the letter to the list of wrong letters and subtract one of the guesses.
+        guessWrongArray.push(letter);
+        guessesLeft--;
+    }
+}
 
-// Press a letter key to start the game. 
-// Take the letter input from the user. Have the first key pressed be the first guess. Must be one letter and no other characters. 
-//Accomodate for non-letters with If statement for keys not included in alphabetArray.
+// Part IV. Create a function to hold all the code that needs to be run after each guess is made.
+function roundComplete() {
 
+    // First, log an initial status update in the console telling us how many wins, losses, and guesses are left.
+    console.log("Wins: " + winsTally + " | LossCount: " + lossTally + " | Guesses Left: " + guessesLeft);
+
+    // update the page to reflect the new number of guesses and update the correct guesses.
+    document.getElementById("guesses-left").innerHTML = guessesLeft;
+    document.getElementById("word-blanks").innerHTML = blanksAndSuccesses.join(" ");
+    document.getElementById("letters-used").innerHTML = guessWrongArray.join(" ");
+
+    // if all the letters match the solution.
+    if (lettersInChosenWord.toString() === blanksAndSuccesses.toString()) {
+        // add to winsTally
+        winsTally++
+        // document.getElementById("you-won").innerHTML = messageWon;
+        document.getElementById("wins-tally").innerHTML = winsTally;
+        // restart the game.
+        startGame();
+    } else if (guessesLeft === 0) {
+        lossTally++
+        // document.getElementById("you-lost").innerHTML = messageLost;
+        document.getElementById("losses-tally").innerHTML = lossTally;
+        // restart the game.
+        startGame();
+    }
+}
+
+// run start game function.
+startGame();
+
+// Main Processes to start the game.
 document.onkeyup = function (event) {
     var keyPress = String.fromCharCode(event.keyCode).toLowerCase();
     console.log(keyPress);
 
-    var alphabetArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    console.log(alphabetArray);
-
-    //if the index comes out as -1, it means that keyPress was NOT in the alphabetArray
-    //if I typed "]" or "m", for example, this code would run
-    if (alphabetArray.indexOf(keyPress) === -1) {
-        // IGNORE the keyPress
-        // console.log("Please choose a single letter to start the game.");
-        return;
-        //if the index comes out as anything other than -1, it means the letter was in the array
-        //if I typed "a" or "b", for example, this code would run    
-    } else if (random.indexOf(keyPress) === -1) {
-        // letter is not in word; add to guessWrongArray
-        guessWrongArray.push(keyPress);
-        console.log("wrong letters:", guessWrongArray);
-        guessesRemaining--;
-        document.getElementById("lettersUsed").innerHTML = guessWrongArray.join(", ");
-
-        // Update display for guessesRemaining
-        document.getElementById("guesses").innerHTML = guessesRemaining;
-
-                
-    } else {
-        console.log(keyPress);
-        // If the player guesses a correct letter, add the letter to the correct location in Current Word <span id="answer">
-        for (var j = 0; j < random.length; j++) {
-            if (random[j] === keyPress) {
-                answerArray[j] = keyPress;
-                remainingLetters--;
-                document.getElementById("answer").innerHTML = answerArray.join("");
-            
-
-// *** Each time we put a letter in the answerArray, we should check if it mathes the random word
-        // NEW / If the player fills in the whole word, display the word and add 1 to winsTally. 
-            if ((answerArray === random) && (guessesRemaining > 0) && (remainingLetters === 0)) {
-                document.getElementById("congratulations").innerHTML("Congratulations, you won! The Park name is" + random);
-                winsTally++;
-                console.log(winsTally);
-                // Update display for wins
-                document.getElementById("wins").innerHTML = winsTally;
-                
-                // Also need a reset function here for both scenarios.
-                }
-            else if ((answerArray != random ) && (guessesRemaining === 0) && (remainingLetters > 0)) {
-                return;
-                document.getElementById("gameover").innerHTML("Sorry, you lost this time! The Park name is" + random);
-            }
-
-            }
-        }
-
-    }
-
-}
-
+    // runs the function to compare for correctness.
+    checkLetters(keyPress);
+    // run the function after each round.
+    roundComplete();
+    // Get rid of the won/lost messages.
+    // document.getElementById("you-won").innerHTML = messageRemove;
+    // document.getElementById("you-lost").innerHTML = messageRemove;
+};

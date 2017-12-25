@@ -14,49 +14,64 @@
 
 <body>
 
-    <div class="jumbotron">
-        <h1>Hangman Game</h1>
-        <p id="jumbotron-p">National Parks... America's Best Idea. </p>
-    </div>
 
+    <!-- Bootstrap container will hold all the game panels. -->
     <div class="container">
+        <!-- Jumbotron for the title section. -->
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Hangman Game</h1>
+                <p id="jumbotron-p">National Parks... America's Best Idea. </p>
+                <h3>Press any letter to start. Press the spacebar to finalize two word names.</h3>
+            </div>
+        </div>
+        <!-- This section begins the game panels. -->
         <div class="row">
             <div class="col-md-12">
-                <div class="page-header">
-                    <h1>Press a letter to start!</h1>
-                    <h2><span id="congratulations"></span></h2>
-                    <h2><span id="gameover"></span></h2>
-                </div>
-
                 <div class="row panel-row">
                     <div class="col-md-4">
-                        
+                        <!-- Panel 1: holds the word to that is being guessed. -->
                         <h1>Current Word:</h1>
-                        <p> <span id="answer"> </span></p>
+                        <p>
+                            <span id="word-blanks"> </span>
+                        </p>
+                        <!-- Panel 2: holds the letters used. -->
                         <h1>Letters Used:</h1>
-                        <p><span id="lettersUsed"> </span></p>
+                        <p>
+                            <span id="letters-used"> </span>
+                        </p>
+                        <!-- This panel holds the countdown of guess remaining. -->
+                        <h1>Guesses Remaining:</h1>
+                        <p id="guesses-left"></p>
                     </div>
-                    
+
                     <div class="col-md-4">
                         <img src="assets/images/nplogo.png" class="start-image" alt="National Park Logo">
                     </div>
 
                     <div class="col-md-4">
+                        <!-- This panel holds the wins and losses tally. -->
                         <h1> Wins: </h1>
-                        <p id="wins"></p>
-                        <h1>Guesses Remaining:</h1>
-                        <p id="guesses"></p>
-                    <div>
+                        <p id="wins-tally"></p>
+                        <h2>
+                            <span id="you-won"></span>
+                        </h2>
+                        <h1> Losses: </h1>
+                        <p id="losses-tally"></p>
+                        <h2>
+                            <span id="you-lost"></span>
+                        </h2>
+                        <div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <footer>
-        Copyright &#169; Natalie Roberts 2017
-    </footer>
+            <footer>
+                Copyright &#169; Natalie Roberts 2017
+            </footer>
 
-    <script type="text/javascript" src="assets/javascript/game.js"></script>
+            <script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>
 
 </html>

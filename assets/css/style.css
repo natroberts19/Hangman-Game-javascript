@@ -1,23 +1,15 @@
 body {
-background-image: url("../images/npbackground.jpeg");
-background-repeat: no-repeat;
-background-size: cover;
-
+    background-image: url("../images/npbackground.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-h1 {
-    font-family: 'Shadows Into Light', cursive;
-}
-
+h1,
 h2 {
     font-family: 'Shadows Into Light', cursive;
 }
 
-#jumbotron-p {
-    font-family: 'Lato', sans-serif;
-    font-size: 36px;
-}
-
+#jumbotron-p,
 p {
     font-family: 'Lato', sans-serif;
     font-size: 36px;
@@ -27,20 +19,17 @@ p {
     padding: 10px 30px 10px 10px;
     border: 2px solid gray;
     opacity: 0.7;
-    filter: alpha(opacity=70); /* For IE8 and earlier */
+    filter: alpha(opacity=70);
+    /* For IE8 and earlier */
     font-family: 'Shadows Into Light', cursive;
-    
 }
-/* 
-#start {
-    
-} */
 
 .page-header {
     background-color: lightblue;
     border: 2px solid coral;
     opacity: 0.7;
-    filter: alpha(opacity=70); /* For IE8 and earlier */
+    filter: alpha(opacity=70);
+    /* For IE8 and earlier */
     text-align: center;
     font-family: 'Shadows Into Light', cursive;
 }
@@ -50,7 +39,22 @@ p {
     background-color: lightblue;
     border: 2px solid coral;
     opacity: 0.7;
-    filter: alpha(opacity=70); /* For IE8 and earlier */
+    filter: alpha(opacity=70);
+    /* For IE8 and earlier */
+}
+
+#guesses-left,
+#word-blanks,
+#letters-used {
+    color: blue;
+}
+
+#wins-tally {
+    color: green;
+}
+
+#losses-tally {
+    color: red;
 }
 
 .start-image {
